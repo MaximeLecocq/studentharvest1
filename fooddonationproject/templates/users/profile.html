@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    <h2>Profile</h2>
+    <div>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>First Name:</strong> {{ user.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+        <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+        <p><strong>Address:</strong> {{ user.address }}</p>
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if user.role == 'student' %}
+            <p><a href="{% url 'complete_profile_student' %}">Complete Student Profile</a></p>
+        {% elif user.role == 'donor' %}
+            <p><a href="{% url 'complete_profile_donor' %}">Complete Donor Profile</a></p>
+        {% endif %}
+    {% endif %}
+
+
+    <p><a href="{% url 'homepage' %}">Return to homepage</a></p>
+{% endblock %}
