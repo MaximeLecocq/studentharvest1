@@ -1,70 +1,14 @@
-{% extends "base.html" %}
-
-{% load static %}
-
-
-{% block title %}Homepage{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container mx-auto py-8">
-    <h1 class="text-3xl font-bold text-center text-navyBlue mb-6">Available Listings</h1>
-    
-    <!-- Grid container -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <!-- Example Box 1 -->
-        <div class="border rounded-lg shadow-md p-4 bg-white">
-            <img src="{% static 'images/listings/placeholder.jpg' %}" alt="Listing Image" class="w-full h-48 object-cover rounded-md">
-            <h2 class="text-xl font-semibold text-gray-800 mt-4">1 Pack of Flour</h2>
-            <p class="text-sm text-gray-600">by <span class="text-blue-500">DonorUsername</span></p>
-            <div class="mt-4 flex justify-between items-center">
-                <button class="bg-limeGreen text-white px-4 py-2 rounded-full hover:bg-green-600">Request Now</button>
-                <button class="text-hotPink hover:text-pink-600">
-                    <i class="fa fa-heart"></i> Add to Favorites
-                </button>
-            </div>
-        </div>
-
-        <!-- Example Box 2 -->
-        <div class="border rounded-lg shadow-md p-4 bg-white">
-            <img src="{% static 'images/listings/placeholder.jpg' %}" alt="Listing Image" class="w-full h-48 object-cover rounded-md">
-            <h2 class="text-xl font-semibold text-gray-800 mt-4">Example Listing 2</h2>
-            <p class="text-sm text-gray-600">by <span class="text-blue-500">DonorUsername</span></p>
-            <div class="mt-4 flex justify-between items-center">
-                <button class="bg-limeGreen text-white px-4 py-2 rounded-full hover:bg-green-600">Request Now</button>
-                <button class="text-hotPink hover:text-pink-600">
-                    <i class="fa fa-heart"></i> Add to Favorites
-                </button>
-            </div>
-        </div>
-
-        <!-- Example Box 3 -->
-        <div class="border rounded-lg shadow-md p-4 bg-white">
-            <img src="{% static 'images/listings/placeholder.jpg' %}" alt="Listing Image" class="w-full h-48 object-cover rounded-md">
-            <h2 class="text-xl font-semibold text-gray-800 mt-4">Example Listing 3</h2>
-            <p class="text-sm text-gray-600">by <span class="text-blue-500">DonorUsername</span></p>
-            <div class="mt-4 flex justify-between items-center">
-                <button class="bg-limeGreen text-white px-4 py-2 rounded-full hover:bg-green-600">Request Now</button>
-                <button class="text-hotPink hover:text-pink-600">
-                    <i class="fa fa-heart"></i> Add to Favorites
-                </button>
-            </div>
-        </div>
-
-        <!-- Example Box 4 -->
-        <div class="border rounded-lg shadow-md p-4 bg-white">
-            <img src="{% static 'images/listings/placeholder.jpg' %}" alt="Listing Image" class="w-full h-48 object-cover rounded-md">
-            <h2 class="text-xl font-semibold text-gray-800 mt-4">Example Listing 4</h2>
-            <p class="text-sm text-gray-600">by <span class="text-blue-500">DonorUsername</span></p>
-            <div class="mt-4 flex justify-between items-center">
-                <button class="bg-limeGreen text-white px-4 py-2 rounded-full hover:bg-green-600">Request Now</button>
-                <button class="text-hotPink hover:text-pink-600">
-                    <i class="fa fa-heart"></i> Add to Favorites
-                </button>
-            </div>
-        </div>
-
-        <!-- Add more boxes as needed -->
-        
-    </div>
-</div>{% endblock %}
+  <h2>All Listings</h2>
+  <ul>
+    {% for listing in listings %}
+      <li>
+        <a href="{% url 'listing_detail' listing.pk %}">{{ listing.title }}</a>
+        by <a href="{% url 'donor_listings' listing.donor.id %}">{{ listing.donor.username }}</a>
+        ({{ listing.created_at }})
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

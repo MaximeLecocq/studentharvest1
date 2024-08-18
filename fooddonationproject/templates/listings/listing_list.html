@@ -1,30 +1,13 @@
-{% extends "base.html" %}
-
-{% block title %}Available Listings{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Available Listings</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for listing in listings %}
-        <div class="bg-white shadow-md rounded-lg p-4">
-            <div class="relative">
-                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                    {% if listing.images.count > 1 %}
-                    <button class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-200 text-gray-800 px-2 py-1 rounded-full">‹</button>
-                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-200 text-gray-800 px-2 py-1 rounded-full">›</button>
-                    {% endif %}
-                </div>
-            </div>
-            <h2 class="text-xl font-semibold mt-4">{{ listing.title }}</h2>
-            <p class="text-gray-600">{{ listing.donor.username }}</p>
-            <div class="mt-4">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">Request Now</button>
-                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 ml-2">Add to Favorites</button>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+  <h2>Available Listings</h2>
+  <ul>
+    {% for listing in listings %}
+      <li>
+        <a href="{% url 'listing_detail' listing.pk %}">{{ listing.title }}</a>
+        by {{ listing.donor.username }} ({{ listing.created_at }})
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

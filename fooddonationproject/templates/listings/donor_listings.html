@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Listings by {{ donor.username }}</h2>
+  <ul>
+    {% for listing in listings %}
+      <li><a href="{% url 'listing_detail' listing.pk %}">{{ listing.title }}</a> - {{ listing.created_at }}</li>
+    {% empty %}
+      <li>No listings found for this donor.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

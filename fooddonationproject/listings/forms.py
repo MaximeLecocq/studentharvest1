@@ -1,16 +1,22 @@
+# listings/forms.py
+
 from django import forms
-from django.forms import inlineformset_factory
-from .models import Listing, ListingImage
+from .models import Listing
 
 class ListingForm(forms.ModelForm):
+    CATEGORIES = (
+        ('canned', 'Canned Goods'),
+        ('dry', 'Dry Staples'),
+        ('beverages', 'Beverages'),
+        ('vegetables', 'Fresh Vegetables'),
+        ('fruits', 'Fruits'),
+    )
+    
+    categories = forms.MultipleChoiceField(  # Allow multiple choices
+        choices=CATEGORIES,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Listing
-        fields = ['title', 'description']
-
-ListingImageFormSet = inlineformset_factory(
-    Listing,
-    ListingImage,
-    fields=['image'],
-    extra=3,  # Allow up to 3 images
-    can_delete=True
-)
+        fields = ['title', 'description', 'address', 'categories', 'expiry_date', 'image']
