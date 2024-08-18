@@ -14,6 +14,12 @@
     <img src="{{ listing.image.url }}" alt="{{ listing.title }}">
   {% endif %}
 
+  {% if request.user in listing.favorites.all %}
+    <a href="{% url 'remove_from_favorites' listing.pk %}" class="btn btn-danger">Remove from Favorites</a>
+  {% else %}
+    <a href="{% url 'add_to_favorites' listing.pk %}" class="btn btn-primary">Add to Favorites</a>
+  {% endif %}
+
   {% if is_owner %}
     <p>
       <a href="{% url 'edit_listing' listing.pk %}">Edit Listing</a> |
